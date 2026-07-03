@@ -2,6 +2,7 @@ import { PenBoxIcon, Trash2Icon } from 'lucide-react'
 import { formatDate } from '../lib/utils'
 import toast from 'react-hot-toast'
 import api from '../lib/axios'
+import { Link } from 'react-router'
 
 
 const NoteCard = ({ title, content, created, id, setNotes}) => {
@@ -21,18 +22,14 @@ const NoteCard = ({ title, content, created, id, setNotes}) => {
     <Link to={`/notes/update/${id}`} className='bg-white p-6 rounded-lg'>
         <div className=' mb-7 flex gap-3 flex-col items-start'>
             <div className='flex flex-col gap-2'>
-                <h1 className='text-xl font-bold'>Title</h1>
                 <h1>{title}</h1>
-            </div>
-            <div className='flex flex-col gap-2'>
-                <h1 className='text-lg font-bold text-black/40'>Content</h1>
                 <p>{content}</p>
             </div>
             
         </div>
 
         <div className='flex justify-between items-center'>
-            <p>Created at: {formatDate(new Date(created))}</p>
+            <p> {formatDate(new Date(created))}</p>
             <div className='flex gap-2 items-center'>
                 <Link to={`/notes/update/${id}`} className='cursor-pointer'>
                     <PenBoxIcon />

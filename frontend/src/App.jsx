@@ -5,6 +5,7 @@ import NoteDetailsPage from "./pages/NoteDetailsPage";
 
 const App = () => {
   return(
+    
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/create" element={<CreateNotePage />} />
