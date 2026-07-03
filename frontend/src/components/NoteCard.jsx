@@ -1,10 +1,24 @@
 import { PenBoxIcon, Trash2Icon } from 'lucide-react'
+import { formatDate } from '../lib/utils'
+import toast from 'react-hot-toast'
+import api from '../lib/axios'
 
 
-
-const NoteCard = ({ title, content, created }) => {
+const NoteCard = ({ title, content, created, id, setNotes}) => {
+    console.log(id)
+    const handleDelete = async (e,id) => {
+        e.preventDefault()
+        try {
+            if(!window.confirm("Are you sure you want to delete this note?")) return
+            const res = await api.delete(`/notes/delete/${id}`)
+            toast.success("Note deleted successfully")
+            setNotes(prevNotes => prevNotes.filter(note => note._id !== id))
+        } catch (error) {
+            toast.error("Failed to delete note")
+        }
+    }
   return (
-    <div className='bg-white p-6 rounded-lg'>
+    <Link to={`/notes/update/${id}`} className='bg-white p-6 rounded-lg'>
         <div className=' mb-7 flex gap-3 flex-col items-start'>
             <div className='flex flex-col gap-2'>
                 <h1 className='text-xl font-bold'>Title</h1>
@@ -18,14 +32,20 @@ const NoteCard = ({ title, content, created }) => {
         </div>
 
         <div className='flex justify-between items-center'>
-            <p>Created at: {created}</p>
+            <p>Created at: {formatDate(new Date(created))}</p>
             <div className='flex gap-2 items-center'>
-                <PenBoxIcon />
-                <Trash2Icon color='red'/>
+                <Link to={`/notes/update/${id}`} className='cursor-pointer'>
+                    <PenBoxIcon />
+                </Link>
+                
+                <button onClick={(e) => handleDelete(e, id)} className='cursor-pointer'>
+                    <Trash2Icon color='red'/>
+                </button>
+                
             </div>
             
         </div>
-    </div>
+    </Link>
   )
 }
 
