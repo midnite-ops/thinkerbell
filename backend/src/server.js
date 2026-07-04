@@ -3,6 +3,7 @@ import noteRoutes from './routes/noteRoutes.js'
 import dotenv from 'dotenv'
 import { connectDb } from './config/db.js'
 import cors from 'cors'
+import path from 'path'
 
 dotenv.config()
 
@@ -11,16 +12,22 @@ app.use(cors({
     origin: 'http://localhost:5174',
 }))
 const PORT = process.env.PORT
+const __dirname = path.resolve()
 
-connectDb()
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, "../frontend/dist")))
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    });
+}
+
 app.use(express.json())
 
 app.use("/api",noteRoutes)
 
 
-
-app.listen(PORT, () => {
-    console.log("port is running on 8000")
-})  
-
-console.log("After app.listen");
+connectDb().then(() => {
+    app.listen(PORT, () => {
+        console.log("port is running on 8000")
+    })  
+})
