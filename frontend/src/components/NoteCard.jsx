@@ -32,11 +32,11 @@ const NoteCard = ({ title, content, created, id, setNotes}) => {
             <p> {formatDate(new Date(created))}</p>
             <div className='flex gap-2 items-center'>
                 <Link to={`/update/${id}`} className='cursor-pointer'>
-                    <PenBoxIcon />
+                    <PenBoxIcon size={20}/>
                 </Link>
                 
                 <button onClick={(e) => handleDelete(e, id)} className='cursor-pointer'>
-                    <Trash2Icon color='red'/>
+                    <Trash2Icon color='red' size={20}/>
                 </button>
                 
             </div>
