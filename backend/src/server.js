@@ -9,7 +9,7 @@ dotenv.config()
 
 const app = express()
 app.use(cors({
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
 }))
 const PORT = process.env.PORT
 const __dirname = path.resolve()
@@ -28,6 +28,6 @@ app.use("/api",noteRoutes)
 
 connectDb().then(() => {
     app.listen(PORT, () => {
-        console.log("port is running on 8000")
+        console.log(`Server is running on port ${PORT}`)
     })  
 })
