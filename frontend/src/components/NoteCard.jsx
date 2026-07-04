@@ -19,7 +19,7 @@ const NoteCard = ({ title, content, created, id, setNotes}) => {
         }
     }
   return (
-    <Link to={`/notes/update/${id}`} className='bg-white p-6 rounded-lg'>
+    <Link to={`/update/${id}`} className='bg-white p-6 rounded-lg'>
         <div className=' mb-7 flex gap-3 flex-col items-start'>
             <div className='flex flex-col gap-2'>
                 <h1>{title}</h1>
@@ -31,7 +31,7 @@ const NoteCard = ({ title, content, created, id, setNotes}) => {
         <div className='flex justify-between items-center'>
             <p> {formatDate(new Date(created))}</p>
             <div className='flex gap-2 items-center'>
-                <Link to={`/notes/update/${id}`} className='cursor-pointer'>
+                <Link to={`/update/${id}`} className='cursor-pointer'>
                     <PenBoxIcon />
                 </Link>
                 
